@@ -18,11 +18,14 @@ user2 = {
     "phone_number": "+38095-77-44-123",
     "age": 34
 }
-response = requests.post(os.path.join(SERVER_URL, page_url), data=json.dumps(user2))
+auth_params = ('unicorn', 'rainbow')
+
+response = requests.post(os.path.join(SERVER_URL, page_url), data=json.dumps(user2), auth=auth_params)
 print(response.status_code)
 print(json.loads(response.text))
 
 get_params = {"last_name": "Holden"}
-print(requests.get(os.path.join(SERVER_URL, page_url), params=get_params).text)
+print(requests.get(os.path.join(SERVER_URL, page_url), params=get_params, auth=auth_params).text)
 none_params = {"last_name": "Snow"}
+print(requests.get(os.path.join(SERVER_URL, page_url), params=none_params, auth=auth_params).text)
 print(requests.get(os.path.join(SERVER_URL, page_url), params=none_params).text)
