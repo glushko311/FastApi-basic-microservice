@@ -34,7 +34,10 @@ pip freeze > requirements.txt
   DB_PASS=%...% 
   DB_HOST=%...% 
   DB_PORT=%...% 
-  DB_NAME=%...% 
+  DB_NAME=%...%
+  JWT_SECRET=%...%
+  RESET_VERIFY_PASS_SECRET=%...%
+
   run src/main.py to start server
   to test endpoints run src/test_route.py 
 
