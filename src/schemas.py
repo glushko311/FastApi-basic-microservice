@@ -1,40 +1,27 @@
-from typing import Optional
+from typing import Union, Optional
 from pydantic import BaseModel, validator, root_validator, ValidationError
 
 
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+
+
+class TokenData(BaseModel):
+    username: Union[str, None] = None
+
+
 class User(BaseModel):
-    first_name: str
-    last_name: str
-    phone_number: str
-    age: Optional[int]
-    # @validator("phone_number")
-    # def parse_phone_number(cls, phone_number: str):
-    #     """
-    #     Change phone number after parsing
-    #     """
-    #     return f'Phone number {phone_number} XXX '
+    username: str
+    email: Union[str, None] = None
+    full_name: Union[str, None] = None
+    disabled: Union[bool, None] = None
 
-    # @validator("phone_number")
-    # def parse_phone_number(cls, phone_number:str, values, **kwargs):
-    #     """
-    #     print dict_keys(['first_name', 'last_name'])
-    #     all required values names except phone_number it put
-    #     into method directly
-    #     """
-    #     print(values.keys())
-    #     return phone_number
 
-    @root_validator
-    def parse_user(cls, values: dict):
-        """Validate all User parameters"""
-        if values['age'] is not None:
-            if int(values['age']) < 0:
-                raise ValidationError('Age should be positive')
-            if int(values['age']) > 150:
-                raise ValidationError('Age should be less than 150')
-        print(values.keys())
-        return values
+class UserRegSchema(BaseModel):
+    username: str
+    password: str
+    email: Union[str, None] = None
+    full_name: Union[str, None] = None
 
-    class Config:
-        orm_mode = True
 
