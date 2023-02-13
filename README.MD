@@ -38,5 +38,8 @@ pip freeze > requirements.txt
   run src/main.py to start server
   to test endpoints run src/test_route.py 
 
+# Generate secrets
+openssl rand -hex 32
+
 # Start Database 
 docker-compose up

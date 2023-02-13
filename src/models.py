@@ -1,6 +1,10 @@
 import typing
 
-from src.db import Base
+from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.future import select
+
+# from src.db import Base
+from src.database import Base
 from sqlalchemy import MetaData, Table, Column, Integer, String, TIMESTAMP, ForeignKey, JSON, BOOLEAN
 from sqlalchemy.orm import Session
 from passlib.hash import bcrypt
@@ -24,8 +28,10 @@ class User(Base):
     # def verify_password(self, password):
     #     return bcrypt.verify(password, self.password_hash)
     @staticmethod
-    async def get_by_username(db: Session, username: str):
-        user = db.query(User).filter(User.username == username).first()
+    async def get_by_username(db: AsyncSession, username: str):
+        query = await db.execute(select(User).where(User.username == username))
+        user = query.scalars().first()
+        # user = await db.execute(select(User).where(User.username == username))
         return user
 
     @staticmethod
@@ -34,7 +40,7 @@ class User(Base):
         return user
 
     @staticmethod
-    async def create_user(db: Session, user: 'UserRegSchema'):
+    async def create_user(db: AsyncSession, user: 'UserRegSchema'):
         from src.app import get_password_hash
         user: User = User(
             username=user.username,
@@ -44,6 +50,6 @@ class User(Base):
             hashed_password=get_password_hash(user.password)
         )
         db.add(user)
-        db.commit()
-        db.refresh(user)
+        await db.commit()
+        await db.refresh(user)
         return user
