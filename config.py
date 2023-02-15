@@ -10,4 +10,5 @@ DB_HOST = os.environ.get("DB_HOST")
 DB_PORT = os.environ.get("DB_PORT")
 DB_NAME = os.environ.get("DB_NAME")
 JWT_SECRET = os.environ.get("JWT_SECRET")
-TOKEN_EXPIRED_TIME = 15  #  in minutes
+ACCESS_TOKEN_EXPIRE_MINUTES = 30
+
