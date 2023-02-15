@@ -15,13 +15,10 @@ DATABASE_URL: str = f"postgresql+asyncpg://{DB_USER}:{DB_PASS}@{DB_HOST}:{DB_POR
 
 
 engine: 'AsyncEngine' = create_async_engine(DATABASE_URL, echo=True)
-# Base = declarative_base(class_registry={"User": src.models.user.User, "Session": Session, "Role": Role})
 Base = declarative_base()
 async_session: sessionmaker = sessionmaker(
     engine, class_=AsyncSession, expire_on_commit=False
 )
-
-# from src.models import *
 
 
 # Dependency

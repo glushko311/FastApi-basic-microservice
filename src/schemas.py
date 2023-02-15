@@ -1,3 +1,4 @@
+import datetime
 from typing import Union, Optional
 from pydantic import BaseModel, validator, root_validator, ValidationError
 
@@ -17,7 +18,7 @@ class Role(BaseModel):
 
 class Session(BaseModel):
     token: str
-    # expired_time :TIMESTAMP
+    expired_time: datetime.datetime
     user_id: int
 
 

@@ -5,8 +5,7 @@ from sqlalchemy.future import select
 from sqlalchemy.orm import relationship
 
 from src.database import Base
-from sqlalchemy import MetaData, Column, Integer, String, \
-    TIMESTAMP, ForeignKey, JSON, BOOLEAN, UniqueConstraint
+from sqlalchemy import Column, Integer, String, ForeignKey, BOOLEAN
 from fastapi import HTTPException
 
 
@@ -32,7 +31,7 @@ class User(Base):
     hashed_password = Column(String, nullable=False)
     disabled = Column(BOOLEAN)
     role_id = Column(Integer, ForeignKey('role.id'))
-    role = relationship("Role")
+    role = relationship("Role", lazy="joined")
     session = relationship("Session", uselist=False, back_populates="user", lazy="joined")
 
     @staticmethod

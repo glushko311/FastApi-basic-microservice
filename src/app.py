@@ -31,7 +31,7 @@ async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(
     access_token = create_access_token(
         data={"username": user.username}, expires_delta=access_token_expires
     )
-    await Session.add_session(db, user, access_token)
+    await Session.update_session(db, user, access_token)
     return {"access_token": access_token, "token_type": "bearer"}
 
 
