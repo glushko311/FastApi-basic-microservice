@@ -21,23 +21,6 @@ class Session(Base):
     user_id = Column(Integer, ForeignKey('user.id'))
     user = relationship("User", back_populates="session")
 
-    @staticmethod
-    async def update_session(db: AsyncSession, user: 'User', token: str):
-
-        if user.session:
-            await db.execute(delete(Session).where(Session.user_id == user.id))
-
-        session: Session = Session(
-            token=token,
-            expired_time=datetime.utcnow() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES),
-            user_id=user.id,
-            user=user
-        )
-        db.add(session)
-        await db.commit()
-        await db.refresh(session)
-        return session
-
 
 
 
