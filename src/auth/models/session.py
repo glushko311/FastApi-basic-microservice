@@ -9,7 +9,7 @@ from src.database import Base
 from sqlalchemy import Column, Integer, String, TIMESTAMP, ForeignKey, delete
 
 if typing.TYPE_CHECKING:
-    from src.models import User
+    from src.auth import User
 
 
 class Session(Base):

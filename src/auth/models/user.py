@@ -44,7 +44,7 @@ class User(Base):
 
     @staticmethod
     async def create_user(db: AsyncSession, user: 'UserRegSchema'):
-        from src.auth import get_password_hash
+        from src.auth_tools import get_password_hash
         user: User = User(
             username=user.username,
             email=user.email,
