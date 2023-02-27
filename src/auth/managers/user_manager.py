@@ -9,7 +9,7 @@ from sqlalchemy.future import select
 from fastapi import HTTPException, Depends
 from starlette import status
 
-from config import JWT_SECRET, JWT_TOKEN_ALGORITHM
+from config import JWT_SECRET, JWT_TOKEN_ALGORITHM, VERSION_PREFIX
 from src.auth.models import User
 from src.auth_tools import UnathorizedException
 from src.database import get_session
@@ -19,7 +19,7 @@ if typing.TYPE_CHECKING:
     from src.auth.schemas import UserRegSchema
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl=f"{VERSION_PREFIX}/auth/token")
 
 
 class UsernameNotUniqueException(HTTPException):

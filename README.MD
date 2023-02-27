@@ -38,6 +38,9 @@ pip freeze > requirements.txt
   run src/main.py to start server
   to test endpoints run src/test_route.py 
 
+  to run locally use DB_HOST=localhost
+  to run due docker use DB_HOST=database
+
 # Generate secrets
 openssl rand -hex 32
 
