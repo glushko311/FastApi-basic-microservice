@@ -16,6 +16,11 @@ from src.auth.schemas import UserSchema
 app = FastAPI()
 
 
+@app.get("/smoke", response_model=dict)
+async def smoke():
+    return {'status': 'success'}
+
+
 @app.post("/token", response_model=TokenSchema)
 async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(), db: AsyncSession = Depends(get_session)):
 

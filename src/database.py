@@ -4,6 +4,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.ext.asyncio import create_async_engine
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy import MetaData
 
 from config import DB_HOST, DB_PORT, DB_PASS, DB_NAME, DB_USER
 
@@ -15,7 +16,9 @@ DATABASE_URL: str = f"postgresql+asyncpg://{DB_USER}:{DB_PASS}@{DB_HOST}:{DB_POR
 
 
 engine: 'AsyncEngine' = create_async_engine(DATABASE_URL, echo=True)
-Base = declarative_base()
+metadata = MetaData()
+Base = declarative_base(metadata=metadata)
+
 async_session: sessionmaker = sessionmaker(
     engine, class_=AsyncSession, expire_on_commit=False
 )
