@@ -5,6 +5,7 @@ from src.auth.schemas.role_schema import RoleSchema
 
 
 class UserSchema(BaseModel):
+    id: int
     username: str
     email: Union[str, None] = None
     full_name: Union[str, None] = None

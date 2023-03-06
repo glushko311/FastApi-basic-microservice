@@ -16,7 +16,7 @@ class Session(Base):
 
     __tablename__ = "session"
     id = Column(Integer, primary_key=True, index=True)
-    token = Column(String, unique=True, nullable=False)
+    token = Column(String(500), unique=True, nullable=False)
     expired_time = Column(TIMESTAMP)
     user_id = Column(Integer, ForeignKey('user.id'))
     user = relationship("User", back_populates="session")

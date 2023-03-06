@@ -28,6 +28,7 @@ if config.config_file_name is not None:
 # for 'autogenerate' support
 from src.auth.models import *
 from src.item.models import *
+from src.metadata.models import *
 
 target_metadata = Base.metadata
 

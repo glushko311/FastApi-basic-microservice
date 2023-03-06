@@ -8,10 +8,10 @@ class User(Base):
 
     __tablename__ = "user"
     id = Column(Integer, primary_key=True, index=True)
-    username = Column(String, unique=True, nullable=False)
-    full_name = Column(String)
-    email = Column(String, unique=True, nullable=False)
-    hashed_password = Column(String, nullable=False)
+    username = Column(String(100), unique=True, nullable=False)
+    full_name = Column(String(200))
+    email = Column(String(100), unique=True, nullable=False)
+    hashed_password = Column(String(500), nullable=False)
     disabled = Column(BOOLEAN)
     role_id = Column(Integer, ForeignKey('role.id'))
     role = relationship("Role", lazy="joined")

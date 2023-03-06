@@ -1,28 +1,25 @@
-from datetime import datetime, timedelta
-import typing
-
-from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import relationship
 
-from config import ACCESS_TOKEN_EXPIRE_MINUTES
+
 from src.database import Base
 from sqlalchemy import Column, Integer, String, TIMESTAMP, ForeignKey, delete, BOOLEAN, JSON
 
-# if typing.TYPE_CHECKING:
-#     from src.auth import User
 
 class Item(Base):
     __tablename__ = "item"
     id = Column(Integer, primary_key=True, index=True)
-    number = Column(String, nullable=False)
-    title = Column(String, nullable=False)
-    description = Column(String, nullable=False)
-    location = Column(String, unique=True, nullable=False)
+    number = Column(String(50), nullable=False, unique=True)
+    title = Column(String(100), nullable=False)
+    description = Column(String(1000), nullable=False)
+    location = Column(String(50), unique=False, nullable=False)
     created = Column(TIMESTAMP, nullable=False)
-    tags = Column(JSON)
-    public = Column(BOOLEAN)
-    disabled = Column(BOOLEAN)
+    public = Column(BOOLEAN, nullable=False)
+    disabled = Column(BOOLEAN, nullable=False)
+    marked = Column(BOOLEAN, nullable=False)
+    pictures = relationship("Picture", uselist=True, back_populates="item", lazy="joined")
     # picture_id = Column(Integer, ForeignKey('picture.id'))
-    # user_id = Column(Integer, ForeignKey('user.id'))
-    # User = relationship("User", lazy="joined")
-    # session = relationship("Session", uselist=False, back_populates="user", lazy="joined")
+    user_id = Column(Integer, ForeignKey('user.id'))
+    user = relationship("User", lazy="joined")
+    collection_id = Column(Integer, ForeignKey('collection.id'))
+    # role = relationship("Role", lazy="joined")
+    # collection_id = Column(Integer)
