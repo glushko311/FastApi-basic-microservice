@@ -1,8 +1,7 @@
 from sqlalchemy.orm import relationship
 
-
 from src.database import Base
-from sqlalchemy import Column, Integer, String, TIMESTAMP, ForeignKey, delete, BOOLEAN, JSON
+from sqlalchemy import Column, Integer, String, TIMESTAMP, ForeignKey, delete, BOOLEAN, JSON, Table
 
 
 class Item(Base):
@@ -17,9 +16,10 @@ class Item(Base):
     disabled = Column(BOOLEAN, nullable=False)
     marked = Column(BOOLEAN, nullable=False)
     pictures = relationship("Picture", uselist=True, back_populates="item", lazy="joined")
-    # picture_id = Column(Integer, ForeignKey('picture.id'))
     user_id = Column(Integer, ForeignKey('user.id'))
     user = relationship("User", lazy="joined")
     collection_id = Column(Integer, ForeignKey('collection.id'))
-    # role = relationship("Role", lazy="joined")
-    # collection_id = Column(Integer)
+    tags = relationship('Tag', secondary='item_tag_association', back_populates='items', lazy="joined")
+
+
+

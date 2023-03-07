@@ -39,6 +39,8 @@ class ItemManager:
                 status_code=status.HTTP_404_NOT_FOUND,
                 detail=f"Item with id={item_id} not found or you are not an owner of it"
             )
+        a = item.tags
+        print(a)
         return item
 
     @staticmethod
