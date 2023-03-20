@@ -83,7 +83,7 @@ async def read_item_by_id(
         current_user: UserSchema = Depends(UserManager.get_current_active_user),
 
 ):
-    if await ItemManager.del_items_by_id(
+    if await ItemManager.delete_items_by_id(
         db=db,
         user_id=current_user.id,
         items=item_ids

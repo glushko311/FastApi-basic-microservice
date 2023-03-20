@@ -84,7 +84,7 @@ async def delete_by_id(
         current_user: UserSchema = Depends(UserManager.get_current_active_user),
 
 ):
-    if await CollectionManager.del_collection_by_id(
+    if await CollectionManager.delete_collection_by_id(
         db=db,
         user_id=current_user.id,
         collection_id=collection_id

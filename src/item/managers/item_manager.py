@@ -39,8 +39,6 @@ class ItemManager:
                 status_code=status.HTTP_404_NOT_FOUND,
                 detail=f"Item with id={item_id} not found or you are not an owner of it"
             )
-        a = item.tags
-        print(a)
         return item
 
     @staticmethod
@@ -91,7 +89,7 @@ class ItemManager:
         return item
 
     @staticmethod
-    async def del_items_by_id(db: 'AsyncSession', items: typing.Iterable[int], user_id: int) -> bool:
+    async def delete_items_by_id(db: 'AsyncSession', items: typing.Iterable[int], user_id: int) -> bool:
         await db.execute(delete(Item).where(and_(Item.id.in_(items), Item.user_id == user_id)))
         await db.commit()
         return True

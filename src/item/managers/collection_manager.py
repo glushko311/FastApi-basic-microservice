@@ -77,7 +77,7 @@ class CollectionManager:
         return collection
 
     @classmethod
-    async def del_collection_by_id(
+    async def delete_collection_by_id(
             cls,
             db: 'AsyncSession',
             collection_id: int,
